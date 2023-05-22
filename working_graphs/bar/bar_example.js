@@ -9,7 +9,7 @@ function main() {
        .attr("x", 50)
        .attr("y", 50)
        .attr("font-size", "24px")
-       .text("Net migrations to Australia from 1971-2020");
+       .text("Net overseas migrations to Australia from 1971-2020");
 
     var xScale = d3.scaleBand().range([0, width]).padding(0.4),
         yScale = d3.scaleLinear().range([height, 0]),
@@ -22,20 +22,21 @@ function main() {
         xScale.domain(data.map(function(d) { return d.Year; }));
         yScale.domain([0, d3.max(data, function(d) { return d.Adjusted_data; })]);
         ad_yScale.domain([0, d3.max(data, function(d) { return d.Migrantdata; })]);
-
+        console.log(data)
+//x axis
         g.append("g")
          .attr("transform", "translate(0," + height + ")")
          .call(d3.axisBottom(xScale))
-         .append("text")
-         .attr("y", height - 250)
-         .attr("x", width - 100)
-         .attr("text-anchor", "end")
-         .attr("stroke", "black")
-         .text("Year");
+		 .selectAll("text")	
+         .style("text-anchor", "end")
+         .attr("dx", "-.8em")
+         .attr("dy", ".15em")
+         .attr("transform", "rotate(-65)");         
 
+         
+//y axies
         g.append("g")
-        // .call(d3.axisLeft(yScale).tickFormat(function(d){return "-" + d;}).ticks(10))
-         .call(d3.axisLeft(yScale).ticks(10))
+     .call(d3.axisLeft(yScale).ticks(0))
 	 .append("text")
 	 .attr("transform", "rotate(-90)")
 	 .attr("y", 10)
@@ -43,7 +44,7 @@ function main() {
 	 .attr('text-anchor', 'end')
 	 .attr('stroke', 'black')
 	 //needs to be fixed
-	 .text('Number of People')
+	 .text('');
 
         g.selectAll(".bar")
          .data(data)
@@ -70,8 +71,8 @@ function main() {
 
 		// Update Tooltip's position and value
 		d3.select('#tooltip')
-			.style('left', xPos + 'px')
-			.style('top', yPos + 'px')
+		    .style('left', xPos + 'px')
+		    .style('top', yPos + 'px')
 			.select('#value').text(i.Migrantdata)
 		
 		d3.select('#tooltip').classed('hidden', false);

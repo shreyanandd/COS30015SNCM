@@ -21,26 +21,75 @@ function main() {
 	d3.csv('net_migration_capital_city_new_v2.csv').then(	
 		function(data){
     console.log(data)
-		var arc = g.selectAll('.arc')
+		var arc = g.selectAll('g.arc')
 		.data(pie(data))
 		.enter().append('g')
-		.attr('class', 'arc');
+		.attr('class', 'arc')
+		//.on("mouseover", onMouseOver) // Add listener for event
+		//.on("mouseout", onMouseOut);
+		.on("mouseover", function (data, d) {
+
+			var xPos = parseFloat(d3.select(this).attr('x')) + width / 2 ;
+			var yPos = parseFloat(d3.select(this).attr('y')) + 14 ;
+	
+			d3.select('#tooltip_pie')
+			  .style('left', xPos + 'px')
+			  .style('top', yPos + 'px')
+			  .select('#pie_value')
+			  .text(d.data.Net_overseas_migration_percent + "%");
+			  
+				
+				
+			d3.select('#tooltip_pie').classed('hidden', false);
+	
+		})
         
+		.on("mouseout", function () {
+			d3.select('#tooltip_pie').classed('hidden', true);
+				
+		});
+
+
 		arc.append('path')
 			.attr('d', path)
 			.attr('fill', function(d){return color(d.data.city)});
 
-		arc.append('text')
-			.attr('transform', function(d){return 'translate(' + label.centroid(d) + ')';})
-			.text(function(d){return d.data.Net_overseas_migration_percent + "%"});
+		//arc.append('text')
+			//.attr('transform', function(d){return 'translate(' + label.centroid(d) + 20 + ')';})
+			//.text(function(d){return d.data.Net_overseas_migration_percent + "%"});
+
+			
             
 		svg.append('g')
-			.attr('transform', 'translate(' + (width / 2 - 120) + ',' + 20 + ')')
+			.attr('transform', 'translate(' + (width / 2 - 250) + ',' + 20 + ')')
 			.append('text')
             //text for title
-			.text('Net migrations from overseas')
+			.text('Net overseas migration by capital city (Ending in year 2020)')
 			.attr('class', 'title');
+
+		    
 		}
-	);
+		);
+
+	//function onMouseOver(d) {
+
+		//var xPos = parseFloat(d3.select(this).attr('x')) + width / 2 ;
+		//var yPos = parseFloat(d3.select(this).attr('y')) + 14 ;
+
+		//d3.select('#tooltip_pie')
+		   // .style('left', xPos + 'px')
+		    //.style('top', yPos + 'px')
+			//.select('#pie_value').text(function(d){return d.Net_overseas_migration_percent + "%"})//.text(d.Net_overseas_migration_percent)
+			
+		    
+		//d3.select('#tooltip_pie').classed('hidden', false);
+
+	//}
+
+	//function onMouseOut() {
+	//d3.select('#tooltip_pie').classed('hidden', true);
+		
+	//}
+	
     //Code from https://github.com/markumreed/data_science_for_everyone/tree/main/d3_project
 }
