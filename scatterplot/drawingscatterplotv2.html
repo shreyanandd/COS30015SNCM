@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="Data Visualisation"/>
+    <meta name="keywords" content="HTML, CSS, D3"/>
+    <meta name="author" content="Shreya Nand"/>
+
+    <title>Task 2.1 D3 Data Binding</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+</head>
+
+<body class="container">
+    <div> <h1> Scatterplot: How covid-19 affected interstate migration within Australia</h1></div>
+    <div class="row">
+        <div class="dashboard-item">
+            <div id="net_migrationv2"></div>
+        </div>
+    </div>
+
+
+    
+<script type="text/javascript">
+   function  drawScatterPlotChart(csv_data){
+    var svg = d3.select("#net_migrationv2")
+    .append("svg")
+    .attr("width","700")
+    .attr("height","320")
+
+    var div = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+var max = d3.max(csv_data,function(d) { return parseInt(d["Interstate_departures"])});
+var max = d3.min(csv_data,function(d) { return parseInt(d["Interstate_departures"])});
+
+console.log(max);
+console.log(min);
+
+   }
+ var CSVData = [];
+ d3.csv("net_migrationv2.csv", function(data){
+for(var i=0;i<100;i++){
+    CSVData.push(data[i]);
+}
+drawScatterPlotChart(CSVData);
+ })
+</script>
+   
+</body>
+<!-- Code from: https://gist.github.com/jfreels/6816504 -->
+</html>
+
