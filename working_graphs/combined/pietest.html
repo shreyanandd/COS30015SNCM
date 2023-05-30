@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="https://d3js.org/d3.v7.min.js"></script>
+	<script src="pie_example.js"></script>
+	<link rel="stylesheet" href="pie_style.css">
+	<title>D3 with DS4E</title>
+</head>
+<body onload="main()">
+
+	<div id="nav"><nav>
+		<a href='bruh.html' class="active" >Bar Graph</a><a href='pietest.html'>Doughnut Chart</a>
+		</nav>
+		</div>
+
+		<br/>
+
+	<div id="tooltip_pie" class="hidden">
+		<p><strong>Segment Value</strong></p>
+		<p><span id="pie_value">100</span></p>
+	</div>
+	<svg width = "600" height = "600"></svg>
+	<br>
+
+	<table>
+		<tr id="ROW1">
+		  <td id="CELL1">Cell 1.1</td>
+		  <td>Melborne(56,083)</td>		  
+		</tr>
+
+		<tr id="ROW2">
+		  <td id="CELL2">Cell 2.1</td>
+		  <td>Sydney(50,083)</td>		  
+		</tr>
+
+		<tr id="ROW3">
+		  <td id="CELL3">Cell 3.1</td>
+		  <td>Perth(22,214)</td>		  
+		</tr>
+
+		<tr id="ROW4">
+			<td id="CELL4">Cell 4.1</td>
+			<td>Brisbane(16,169)</td>		  
+		  </tr>
+
+		  <tr id="ROW5">
+			<td id="CELL5">Cell 5.1</td>
+			<td>Adelaide(13,665)</td>		  
+		  </tr>
+
+		  <tr id="ROW6">
+			<td id="CELL6">Cell 6.1</td>
+			<td>Canberra(2,368)</td>		  
+		  </tr>
+
+		  <tr id="ROW7">
+			<td id="CELL7">Cell 7.1</td>
+			<td>Hobart(2,113)</td>		  
+		  </tr>
+
+		  <tr id="ROW8">
+			<td id="CELL8">Cell 8.1</td>
+			<td>Darwin(132)</td>		  
+		  </tr>				
+	  </table>
+
+</body>
+</html>
