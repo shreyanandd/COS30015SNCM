@@ -1,0 +1,47 @@
+.arc text{
+	font: 10px sans-serif;
+	text-anchor: middle;
+}
+.arc path{
+	stroke: white;
+}
+.title{
+	fill: black;
+	font-weight: bold;
+	font-size: 20px;
+}
+table          {border:solid 5px #000;}
+table td       {border:inset 1px #000;}
+table td#CELL1 {background-color: #C7CEEA; color: #C7CEEA;}
+table td#CELL2 {background-color: #B5EAD7; color: #B5EAD7;}
+table td#CELL3 {background-color: #FFDAC1; color: #FFDAC1;}
+table td#CELL4 {background-color: #FF9AA2; color: #FF9AA2;}
+table td#CELL5 {background-color: #42eff5; color: #42eff5;}
+table td#CELL6 {background-color: #42f554; color: #42f554;}
+table td#CELL7 {background-color: #4254f5; color: #4254f5;}
+table td#CELL8 {background-color: #f542e6; color: #f542e6;}
+
+#tooltip_pie{
+	position: absolute;
+	width: 200px;
+	height: auto;
+	padding: 10px;
+	background-color: blanchedalmond;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+	-moz-box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+	box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+	pointer-events: none;
+}
+#tooltip_pie.hidden{
+	display: none;
+}
+#tooltip_pie p{
+	margin: 0;
+	font-family: sans-serif;
+	font-size: 16px;
+	line-height: 20px;
+}
+
