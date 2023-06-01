@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style> /* set the CSS */
+
+.line {
+  fill: none;
+  stroke: white;
+  stroke-width: 2px;
+}
+
+table, th, td {
+  border:1px solid black;
+}
+
+
+</style>
+<body>
+
+<!-- load the d3.js library -->    	
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+
+// set the dimensions and margins of the graph
+var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+
+// ranges
+var x = d3.scaleLinear().range([0, width]);
+var y = d3.scaleLinear().range([height, 0]);
+
+// define line
+var valueline = d3.line()
+    .x(function(d) { return x(d.StateNo); })
+    .y(function(d) { return y(d.Interstate_arrivals); });
+
+// svg object is appended to body of page
+// group element is appended to svg
+// group element is moved to top left margin
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+// load data
+d3.csv("net_migrationv3.csv").then(function(data) {
+
+  // format data
+  data.forEach(function(d) {
+      d.StateNo = d.StateNo;
+      d.Interstate_arrivals = +d.Interstate_arrivals;
+  });
+
+  // Scaling range
+  x.domain(d3.extent(data, function(d) { return d.StateNo; }));
+  y.domain([0, d3.max(data, function(d) { return d.Interstate_arrivals; })]);
+
+  // Valueline path.
+  svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      .attr("d", valueline);
+      
+  // Add the scatterplot
+  svg.selectAll("dot")
+      .data(data)
+    .enter().append("circle")
+      .attr("r", 5)
+      .attr("cx", function(d) { return x(d.StateNo); })
+      .attr("cy", function(d) { return y(d.Interstate_arrivals); })
+      .attr("fill", "orange");
+
+  // X Axis
+  svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+
+  // Y Axis
+  svg.append("g")
+      .call(d3.axisLeft(y));
+
+});
+
+</script>
+
+<!--Add Table as Legend-->
+
+<table>
+    <tr>
+        <th> State </th>
+        <th> State Number </th>
+    </tr>
+    <tr>
+        <td> NSW </td>
+        <td> 1 </td>
+    </tr>
+    <tr>
+        <td> VIC </td>
+        <td> 2 </td>
+    </tr>
+    <tr>
+        <td> QLD </td>
+        <td> 3 </td>
+    </tr>
+    <tr>
+        <td> SA </td>
+        <td> 4 </td>
+    </tr>
+    <tr>
+        <td> WA </td>
+        <td> 5 </td>
+    </tr>
+    <tr>
+        <td> TAS </td>
+        <td> 6 </td>
+    </tr>
+    <tr>
+        <td> NT </td>
+        <td> 7 </td>
+    </tr>
+    <tr>
+        <td> ACT </td>
+        <td> 8 </td>
+    </tr>
+</table>
+</body>
+<!--Referenced code: https://gist.github.com/d3noob/3aa3bbe05ee97b35af660c25ee27213b-->
