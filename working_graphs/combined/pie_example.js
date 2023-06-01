@@ -25,8 +25,7 @@ function main() {
 		.data(pie(data))
 		.enter().append('g')
 		.attr('class', 'arc')
-		//.on("mouseover", onMouseOver) // Add listener for event
-		//.on("mouseout", onMouseOut);
+		//when mouse hovers over segment displays tooltip
 		.on("mouseover", function (data, d) {
 
 			var xPos = parseFloat(d3.select(this).attr('x')) + width / 2 ;
@@ -43,7 +42,7 @@ function main() {
 			d3.select('#tooltip_pie').classed('hidden', false);
 	
 		})
-        
+        //removes tooltip
 		.on("mouseout", function () {
 			d3.select('#tooltip_pie').classed('hidden', true);
 				
@@ -54,9 +53,7 @@ function main() {
 			.attr('d', path)
 			.attr('fill', function(d){return color(d.data.city)});
 
-		//arc.append('text')
-			//.attr('transform', function(d){return 'translate(' + label.centroid(d) + 20 + ')';})
-			//.text(function(d){return d.data.Net_overseas_migration_percent + "%"});
+		
 
 			
             
@@ -71,25 +68,7 @@ function main() {
 		}
 		);
 
-	//function onMouseOver(d) {
-
-		//var xPos = parseFloat(d3.select(this).attr('x')) + width / 2 ;
-		//var yPos = parseFloat(d3.select(this).attr('y')) + 14 ;
-
-		//d3.select('#tooltip_pie')
-		   // .style('left', xPos + 'px')
-		    //.style('top', yPos + 'px')
-			//.select('#pie_value').text(function(d){return d.Net_overseas_migration_percent + "%"})//.text(d.Net_overseas_migration_percent)
-			
-		    
-		//d3.select('#tooltip_pie').classed('hidden', false);
-
-	//}
-
-	//function onMouseOut() {
-	//d3.select('#tooltip_pie').classed('hidden', true);
-		
-	//}
+	
 	
     //Code from https://github.com/markumreed/data_science_for_everyone/tree/main/d3_project
 }
