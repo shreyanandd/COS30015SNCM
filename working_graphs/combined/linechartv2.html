@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="Data Visualisation"/>
+    <meta name="keywords" content="HTML, CSS, D3"/>
+    <meta name="author" content="Shreya Nand"/>
+
+    <title>Task 2.4 D3 Loading Data from CSV</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="nav.css">
+	<style type="text/css">
+
+			.line {
+				fill: none;
+				stroke: teal;
+				stroke-width: 0.5;
+			}
+
+			.safeLevel {
+				stroke: red;
+				stroke-dasharray: 2, 3;
+			}
+
+		</style>
+	</head>
+
+	<body>
+        <div id="nav"><nav>
+            <a href='bruh.html'>Bar Graph</a><a href='pietest.html' >Doughnut Chart</a><a href='drawingscatterplotv4.html'  >Scatter plot</a><a href='linechartv2.html' class="active" >Line Chart</a>
+            </nav>
+            </div>
+        <script>
+        
+        // set the dimensions and margins of the graph
+        var margin = {top: 30, right: 20, bottom: 70, left: 50},
+            width = 1000 - margin.left - margin.right,
+            height = 600 - margin.top - margin.bottom;
+        
+        // parse the date / time
+        var parseTime = d3.timeParse("%d-%b-%y");
+        
+        // set the ranges
+        var x = d3.scaleTime().range([0, width]);
+        var y = d3.scaleLinear().range([height, 0]);
+        
+        // define the line
+        var valueline = d3.line()
+            .x(function(d) { return x(d.Date); })
+            .y(function(d) { return y(d.fixed_amount); });
+        
+        // append the svg obgect to the body of the page
+        // appends a 'group' element to 'svg'
+        // moves the 'group' element to the top left margin
+        var svg = d3.select("body").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+            .attr("transform",
+                  "translate(" + margin.left + "," + margin.top + ")");
+        
+        // Get the data
+        d3.csv("qrt_interstate_migration_v4.csv").then(function(data) {
+        console.log(data)
+        
+          // format the data
+          data.forEach(function(d) {
+              d.Date = parseTime(d.Date);
+              d.fixed_amount = +d.fixed_amount;
+          });
+        
+          // Scale the range of the data
+          x.domain(d3.extent(data, function(d) { return d.Date; }));
+          y.domain([0, d3.max(data, function(d) { return d.fixed_amount; })]);
+        
+          // Add the valueline path.
+          svg.append("path")
+              .data([data])
+              .attr("class", "line")
+              .attr("d", valueline);
+        
+          // Add the x Axis
+          svg.append("g")
+              .attr("transform", "translate(0," + height + ")")
+              .call(d3.axisBottom(x));
+        
+          // Add the y Axis
+          svg.append("g")
+              .call(d3.axisLeft(y));
+        
+        });
+        
+        </script>
+	</body>
+</html>
